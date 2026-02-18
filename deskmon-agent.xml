@@ -1,0 +1,106 @@
+<?xml version="1.0"?>
+<Container version="2">
+  <Name>deskmon-agent</Name>
+  <Repository>ghcr.io/neur0map/deskmon-agent:latest</Repository>
+  <Registry>https://github.com/neur0map/deskmon-agent/pkgs/container/deskmon-agent</Registry>
+  <Branch>
+    <Tag>latest</Tag>
+    <TagDescription>Latest stable release</TagDescription>
+  </Branch>
+  <Network>host</Network>
+  <Privileged>false</Privileged>
+  <Support>https://forums.unraid.net/topic/XXXXX-deskmon-agent/</Support>
+  <Project>https://github.com/neur0map/deskmon-agent</Project>
+  <Overview>
+    Lightweight system monitoring agent for the Deskmon macOS menu bar app.[br][br]
+    Streams live CPU, memory, disk, network, and Docker container stats to the Deskmon app on your Mac via SSH tunnel. No cloud, no accounts, no telemetry.[br][br]
+    [b]What it monitors:[/b][br]
+    - CPU usage and temperature[br]
+    - Memory usage[br]
+    - All mounted disks (array, cache, parity, unassigned)[br]
+    - Network upload/download speed[br]
+    - Docker containers with per-container CPU, memory, network, and disk I/O[br]
+    - Top processes by CPU/memory[br][br]
+    [b]Container actions:[/b] Start, stop, and restart Docker containers from your Mac.[br][br]
+    The host filesystem is mounted read-only. The agent makes zero outbound connections.[br][br]
+    Requires the free Deskmon macOS app: [a href="https://github.com/neur0map/deskmon"]github.com/neur0map/deskmon[/a]
+  </Overview>
+  <Category>Tools:System</Category>
+  <Icon>https://raw.githubusercontent.com/neur0map/deskmon-unraid-templates/main/icons/deskmon-agent.png</Icon>
+  <TemplateURL>https://raw.githubusercontent.com/neur0map/deskmon-unraid-templates/main/deskmon-agent.xml</TemplateURL>
+  <ExtraParams>--pid=host</ExtraParams>
+  <Requires>Docker socket access for container monitoring. Deskmon macOS app for viewing stats.</Requires>
+
+  <!-- Host filesystem (read-only) for disk usage reporting -->
+  <Config
+    Name="Host Filesystem"
+    Target="/hostfs"
+    Default="/"
+    Mode="ro,rslave"
+    Description="Host root filesystem mount for disk usage stats. Mounted read-only."
+    Type="Path"
+    Display="always"
+    Required="true"
+    Mask="false">/</Config>
+
+  <!-- Host sysfs (read-only) for CPU temperature -->
+  <Config
+    Name="Host Sysfs"
+    Target="/host/sys"
+    Default="/sys"
+    Mode="ro"
+    Description="Host /sys mount for CPU temperature sensors. Mounted read-only."
+    Type="Path"
+    Display="always"
+    Required="true"
+    Mask="false">/sys</Config>
+
+  <!-- Docker socket for container stats and management -->
+  <Config
+    Name="Docker Socket"
+    Target="/var/run/docker.sock"
+    Default="/var/run/docker.sock"
+    Mode="rw"
+    Description="Docker socket for container stats, start/stop/restart."
+    Type="Path"
+    Display="always"
+    Required="true"
+    Mask="false">/var/run/docker.sock</Config>
+
+  <!-- Config directory -->
+  <Config
+    Name="Config Directory"
+    Target="/etc/deskmon"
+    Default="/etc/deskmon"
+    Mode="rw"
+    Description="Agent config file. Survives container updates."
+    Type="Path"
+    Display="always"
+    Required="true"
+    Mask="false">/etc/deskmon</Config>
+
+  <!-- Host root path env var -->
+  <Config
+    Name="DESKMON_HOST_ROOT"
+    Target="DESKMON_HOST_ROOT"
+    Default="/hostfs"
+    Mode=""
+    Description="Tells the agent where the host filesystem is mounted."
+    Type="Variable"
+    Display="advanced"
+    Required="true"
+    Mask="false">/hostfs</Config>
+
+  <!-- Host sysfs path env var -->
+  <Config
+    Name="DESKMON_HOST_SYS"
+    Target="DESKMON_HOST_SYS"
+    Default="/host/sys"
+    Mode=""
+    Description="Tells the agent where the host sysfs is mounted."
+    Type="Variable"
+    Display="advanced"
+    Required="true"
+    Mask="false">/host/sys</Config>
+
+</Container>
