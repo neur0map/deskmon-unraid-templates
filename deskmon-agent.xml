@@ -9,7 +9,7 @@
   </Branch>
   <Network>host</Network>
   <Privileged>false</Privileged>
-  <Support>https://forums.unraid.net/topic/XXXXX-deskmon-agent/</Support>
+  <Support>https://forums.unraid.net/topic/197287-deskmon-agent-lightweight-system-monitoring-agent-for-linux-servers-for-native-macos-deskmon-app/</Support>
   <Project>https://github.com/neur0map/deskmon-agent</Project>
   <Overview>
     Lightweight system monitoring agent for the Deskmon macOS menu bar app.[br][br]

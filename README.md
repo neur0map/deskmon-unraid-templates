@@ -33,4 +33,4 @@ The agent binds to `127.0.0.1:7654` (localhost only) and is not reachable from t
 
 - [deskmon-agent source](https://github.com/neur0map/deskmon-agent)
 - [Deskmon macOS app](https://github.com/neur0map/deskmon)
-- [Support thread](https://forums.unraid.net/topic/XXXXX-deskmon-agent/)
+- [Support thread](https://forums.unraid.net/topic/197287-deskmon-agent-lightweight-system-monitoring-agent-for-linux-servers-for-native-macos-deskmon-app/)
